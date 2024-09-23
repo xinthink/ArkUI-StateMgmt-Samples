@@ -128,11 +128,11 @@ export default function combineReducers(reducers: {
   for (let i = 0; i < reducerKeys.length; i++) {
     const key = reducerKeys[i]
 
-    if (process.env.NODE_ENV !== 'production') {
+    // if (process.env.NODE_ENV !== 'production') {
       if (typeof reducers[key] === 'undefined') {
         warning(`No reducer provided for key "${key}"`)
       }
-    }
+    // }
 
     if (typeof reducers[key] === 'function') {
       finalReducers[key] = reducers[key]
@@ -143,9 +143,9 @@ export default function combineReducers(reducers: {
   // This is used to make sure we don't warn about the same
   // keys multiple times.
   let unexpectedKeyCache: { [key: string]: true }
-  if (process.env.NODE_ENV !== 'production') {
+  // if (process.env.NODE_ENV !== 'production') {
     unexpectedKeyCache = {}
-  }
+  // }
 
   let shapeAssertionError: unknown
   try {
@@ -162,7 +162,7 @@ export default function combineReducers(reducers: {
       throw shapeAssertionError
     }
 
-    if (process.env.NODE_ENV !== 'production') {
+    // if (process.env.NODE_ENV !== 'production') {
       const warningMessage = getUnexpectedStateShapeWarningMessage(
         state,
         finalReducers,
@@ -172,7 +172,7 @@ export default function combineReducers(reducers: {
       if (warningMessage) {
         warning(warningMessage)
       }
-    }
+    // }
 
     let hasChanged = false
     const nextState: StateFromReducersMapObject<typeof reducers> = {}

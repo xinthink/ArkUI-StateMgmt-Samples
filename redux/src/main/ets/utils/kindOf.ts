@@ -62,9 +62,9 @@ function isDate(val: any) {
 export function kindOf(val: any) {
   let typeOfVal: string = typeof val
 
-  if (process.env.NODE_ENV !== 'production') {
+  // if (process.env.NODE_ENV !== 'production') {
     typeOfVal = miniKindOf(val)
-  }
+  // }
 
   return typeOfVal
 }
