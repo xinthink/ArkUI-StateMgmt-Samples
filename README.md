@@ -2,7 +2,7 @@
 
 ## Redux
 
-Use [Redux.JS](redux.js.org) directly in ArktUI.
+Use [Redux.JS](redux.js.org) directly in ArkUI.
 
 Classic Redux counter example:
 
