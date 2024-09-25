@@ -1,4 +1,4 @@
-import type { Store, Action } from 'redux'
+import type { Store, Action, Unsubscribe } from 'redux'
 
 import { legacy_createStore } from 'redux'
 import { hilog } from '@kit.PerformanceAnalysisKit';
@@ -27,12 +27,25 @@ const store: Store<CounterState, CounterAction> = legacy_createStore((state = { 
 struct Index {
   title: string = 'Counter';
   @State count: number = 0;
+  unsubscribe: Unsubscribe | null = null;
 
   aboutToAppear(): void {
-    store.subscribe(() => {
+    this.unsubscribe = store.subscribe(() => {
       hilog.debug(0x0000, "testTag", "store updated")
       this.count = store.getState().value;
+
+      // Immutability tests
+      // const tmpVal = store.getState().value;
+      // store.getState().value += 10;
+      // const currVal = store.getState().value;
+      // if (currVal != tmpVal) {
+      //   hilog.error(0x0000, "testTag", `state is mutated to be ${currVal}, but it should be ${tmpVal}`)
+      // }
     })
+  }
+
+  aboutToDisappear(): void {
+    this.unsubscribe && this.unsubscribe()
   }
 
   build() {
